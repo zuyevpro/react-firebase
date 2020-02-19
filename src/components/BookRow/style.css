@@ -1,3 +1,6 @@
+.book__edit {
+	cursor: pointer;
+}
 .book__remove {
 	cursor: pointer;
 }
