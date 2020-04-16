@@ -1,5 +1,7 @@
 import React from "react";
 import style from './style.css';
+//можно так - import './style.css'; и у нас стили в самом конце подключаются
+
 import firebase from "../../firebase";
 
 class BookRow extends React.Component

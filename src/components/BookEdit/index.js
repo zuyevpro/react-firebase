@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form, Modal, Button, FormGroup} from "react-bootstrap";
 import firebase from "../../firebase";
+//хорошо бы чтобы путь был не такой относительный
 
 class BookEdit extends React.Component
 {
@@ -22,6 +23,8 @@ class BookEdit extends React.Component
 	}
 
 	componentDidMount() {
+		//у нас широко распространена деструктуризация -
+		//const = { id, name, author } = this.props;
 		this.setState({
 			id: this.props.id,
 			name: this.props.name,
@@ -31,16 +34,16 @@ class BookEdit extends React.Component
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		if (prevProps.id !== this.props.id) {
-			let state = JSON.parse(JSON.stringify(this.props));
-
-			if (state.id !== '') {
-				state.title = 'Редактирование';
+      const {id, author, name} = this.props;
+      let title;
+			if (id !== '') {
+				title = 'Редактирование';
 			}
 			else {
-				state.title = 'Добавление';
+				title = 'Добавление';
 			}
 
-			this.setState(state);
+			this.setState({author, name, id, title});
 		}
 	}
 
@@ -69,6 +72,7 @@ class BookEdit extends React.Component
 				const id = this.generateId(24);
 				db.doc(id).set(data).then(() => {
 					data['id'] = id;
+					//а зачем так делать? почему не так - data.id = id; ?
 					this.props.onCreate(data);
 					this.close();
 				});
@@ -88,7 +92,7 @@ class BookEdit extends React.Component
 	}
 
 	generateId(length) {
-		var result           = '';
+		var result           = '';//ну ты извращенец)
 		var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 		var charactersLength = characters.length;
 		for ( var i = 0; i < length; i++ ) {
