@@ -1,7 +1,7 @@
 import React from "react";
+import {Button, Table} from "react-bootstrap";
 import BookRow from "../BookRow";
 import BookEdit from "../BookEdit";
-import {Button, Table} from "react-bootstrap";
 
 class BooksList extends React.Component
 {
@@ -22,7 +22,7 @@ class BooksList extends React.Component
 	}
 
 	showEdit(data) {
-		if (!!data && data.constructor.name === 'Object') {
+		if (!!data && data.constructor.name === 'Object') {//почему не typeof ?
 			data['showEdit'] = true;
 		}
 		else {
@@ -56,7 +56,9 @@ class BooksList extends React.Component
 
 	onCreate(data) {
 		data['_id'] = data['id'];
+		//зачем это - _id ?
 		let newData = JSON.parse(JSON.stringify(this.props.data));
+		//если переменную не планируется менять, пусть сразу будет const
 		newData.push(data);
 
 		this.props.onRefresh(newData);
